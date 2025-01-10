@@ -1,0 +1,18 @@
+{{ $namespace := .Release.Name }}
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ print $namespace "-ui-clusterip" }}
+  name: {{ print $namespace "-ui-clusterip" }}
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5173
+  selector:
+    app: {{ print $namespace "-ui" }}
+  type: ClusterIP
+status:
+  loadBalancer: {}
